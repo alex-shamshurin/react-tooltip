@@ -22,8 +22,8 @@ convertCSS:
 genStand:
 	@echo Generating standard...
 	@rm -rf $(STANDALONE) && mkdir $(STANDALONE)
-	@$(NODE_BIN)/browserify -t babelify -t browserify-shim $(SRC)/index.js --standalone ReactTooltip -o $(STANDALONE)/react-tooltip.js
-	@$(NODE_BIN)/browserify -t babelify -t browserify-shim $(SRC)/index.js --standalone ReactTooltip | $(NODE_BIN)/uglifyjs > $(STANDALONE)/react-tooltip.min.js
+	@$(NODE_BIN)/browserify -t babelify -t browserify-shim $(SRC)/index.js --standalone ReactTooltip -o $(STANDALONE)/react-tooltip-currenttarget.js
+	@$(NODE_BIN)/browserify -t babelify -t browserify-shim $(SRC)/index.js --standalone ReactTooltip | $(NODE_BIN)/uglifyjs > $(STANDALONE)/react-tooltip-currenttarget.min.js
 
 devJS:
 	@$(NODE_BIN)/watchify -t babelify $(EXAMPLE_SRC)/index.js -o $(EXAMPLE_DIST)/index.js -dv

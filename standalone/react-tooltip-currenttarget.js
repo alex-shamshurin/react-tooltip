@@ -2014,7 +2014,7 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
   }, {
     key: 'addScrollListener',
     value: function addScrollListener(e) {
-      var isCaptureMode = this.isCapture(e.currentTarget);
+      var isCaptureMode = this.isCapture(e.target);
       window.addEventListener('scroll', this.hideTooltip, isCaptureMode);
     }
   }, {

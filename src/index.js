@@ -377,7 +377,7 @@ class ReactTooltip extends Component {
    * automatically hide the tooltip when scrolling
    */
   addScrollListener (e) {
-    const isCaptureMode = this.isCapture(e.currentTarget)
+    const isCaptureMode = this.isCapture(e.target)
     window.addEventListener('scroll', this.hideTooltip, isCaptureMode)
   }
 

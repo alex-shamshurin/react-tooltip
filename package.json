@@ -1,7 +1,7 @@
 {
-  "name": "react-tooltip",
-  "version": "3.3.1",
-  "description": "react tooltip component",
+  "name": "react-tooltip-currenttarget",
+  "version": "3.3.3",
+  "description": "react tooltip component without currentTarget issue",
   "main": "dist/index.js",
   "scripts": {
     "test": "make test",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wwayne/react-tooltip"
+    "url": "https://github.com/alex-shamshurin/react-tooltip"
   },
   "keywords": [
     "react",
@@ -28,12 +28,12 @@
     "tooltip",
     "react-tooltip"
   ],
-  "author": "wwayne",
+  "author": "alex-shamshurin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wwayne/react-tooltip/issues"
+    "url": "https://github.com/alex-shamshurin/react-tooltip/issues"
   },
-  "homepage": "https://github.com/wwayne/react-tooltip",
+  "homepage": "https://github.com/alex-shamshurin/react-tooltip",
   "browserify-shim": {
     "react": "global:React",
     "react-dom": "global:ReactDOM"
