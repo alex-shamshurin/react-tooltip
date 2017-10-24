@@ -1,6 +1,6 @@
 {
   "name": "react-tooltip-currenttarget",
-  "version": "3.3.3",
+  "version": "3.3.5",
   "description": "react tooltip component without currentTarget issue",
   "main": "dist/index.js",
   "scripts": {
@@ -69,7 +69,9 @@
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
+    "react": "15.6.1",
     "react-addons-test-utils": "^15.1.0",
+    "react-dom": "15.6.1",
     "sinon": "^1.17.4",
     "snazzy": "^2.0.1",
     "standard": "^5.2.2",

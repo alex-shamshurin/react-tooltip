@@ -241,6 +241,8 @@ class ReactTooltip extends Component {
     const {children, multiline, getContent} = this.props
     const originTooltip = e.currentTarget.getAttribute('data-tip')
     const isMultiline = e.currentTarget.getAttribute('data-multiline') || multiline || false
+    const currentEvent = Object.assign(e)
+    const currentTarget = currentEvent.currentTarget
 
     // Generate tootlip content
     let content
@@ -286,10 +288,12 @@ class ReactTooltip extends Component {
       extraClass: e.currentTarget.getAttribute('data-class') || this.props.class || this.props.className || '',
       disable: e.currentTarget.getAttribute('data-tip-disable')
         ? e.currentTarget.getAttribute('data-tip-disable') === 'true'
-        : (this.props.disable || false)
+        : (this.props.disable || false),
+      currentEvent,
+      currentTarget
     }, () => {
-      if (scrollHide) this.addScrollListener(e)
-      this.updateTooltip(e)
+      if (scrollHide) this.addScrollListener(currentTarget)
+      this.updateTooltip(currentEvent)
 
       if (getContent && Array.isArray(getContent)) {
         this.intervalUpdateContent = setInterval(() => {
@@ -311,19 +315,18 @@ class ReactTooltip extends Component {
    * When mouse hover, updatetooltip
    */
   updateTooltip (e) {
-    const {delayShow, show, isEmptyTip, disable} = this.state
+    const {delayShow, show, currentTarget, isEmptyTip, disable} = this.state
     const {afterShow} = this.props
     let {placeholder} = this.state
     const delayTime = show ? 0 : parseInt(delayShow, 10)
-    const eventTarget = e.currentTarget
 
     if (isEmptyTip || disable) return // if the tooltip is empty, disable the tooltip
     const updateState = () => {
       if (Array.isArray(placeholder) && placeholder.length > 0 || placeholder) {
         const isInvisible = !this.state.show
         this.setState({
-          currentEvent: e,
-          currentTarget: eventTarget,
+          currentEvent: Object.assign(e),
+          currentTarget,
           show: true
         }, () => {
           this.updatePosition()
@@ -376,8 +379,8 @@ class ReactTooltip extends Component {
    * Add scroll eventlistener when tooltip show
    * automatically hide the tooltip when scrolling
    */
-  addScrollListener (e) {
-    const isCaptureMode = this.isCapture(e.target)
+  addScrollListener (eventTarget) {
+    const isCaptureMode = this.isCapture(eventTarget)
     window.addEventListener('scroll', this.hideTooltip, isCaptureMode)
   }
 

@@ -1859,6 +1859,8 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 
       var originTooltip = e.currentTarget.getAttribute('data-tip');
       var isMultiline = e.currentTarget.getAttribute('data-multiline') || multiline || false;
+      var currentEvent = Object.assign(e);
+      var currentTarget = currentEvent.currentTarget;
 
       // Generate tootlip content
       var content = void 0;
@@ -1898,10 +1900,12 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
         delayHide: e.currentTarget.getAttribute('data-delay-hide') || this.props.delayHide || 0,
         border: e.currentTarget.getAttribute('data-border') ? e.currentTarget.getAttribute('data-border') === 'true' : this.props.border || false,
         extraClass: e.currentTarget.getAttribute('data-class') || this.props.class || this.props.className || '',
-        disable: e.currentTarget.getAttribute('data-tip-disable') ? e.currentTarget.getAttribute('data-tip-disable') === 'true' : this.props.disable || false
+        disable: e.currentTarget.getAttribute('data-tip-disable') ? e.currentTarget.getAttribute('data-tip-disable') === 'true' : this.props.disable || false,
+        currentEvent: currentEvent,
+        currentTarget: currentTarget
       }, function () {
-        if (scrollHide) _this5.addScrollListener(e);
-        _this5.updateTooltip(e);
+        if (scrollHide) _this5.addScrollListener(currentTarget);
+        _this5.updateTooltip(currentEvent);
 
         if (getContent && Array.isArray(getContent)) {
           _this5.intervalUpdateContent = setInterval(function () {
@@ -1932,21 +1936,21 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
       var _state = this.state,
           delayShow = _state.delayShow,
           show = _state.show,
+          currentTarget = _state.currentTarget,
           isEmptyTip = _state.isEmptyTip,
           disable = _state.disable;
       var afterShow = this.props.afterShow;
       var placeholder = this.state.placeholder;
 
       var delayTime = show ? 0 : parseInt(delayShow, 10);
-      var eventTarget = e.currentTarget;
 
       if (isEmptyTip || disable) return; // if the tooltip is empty, disable the tooltip
       var updateState = function updateState() {
         if (Array.isArray(placeholder) && placeholder.length > 0 || placeholder) {
           var isInvisible = !_this6.state.show;
           _this6.setState({
-            currentEvent: e,
-            currentTarget: eventTarget,
+            currentEvent: Object.assign(e),
+            currentTarget: currentTarget,
             show: true
           }, function () {
             _this6.updatePosition();
@@ -2013,8 +2017,8 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 
   }, {
     key: 'addScrollListener',
-    value: function addScrollListener(e) {
-      var isCaptureMode = this.isCapture(e.target);
+    value: function addScrollListener(eventTarget) {
+      var isCaptureMode = this.isCapture(eventTarget);
       window.addEventListener('scroll', this.hideTooltip, isCaptureMode);
     }
   }, {
